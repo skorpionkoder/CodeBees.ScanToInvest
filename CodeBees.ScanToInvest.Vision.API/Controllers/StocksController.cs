@@ -43,5 +43,28 @@ namespace CodeBees.ScanToInvest.Vision.API.Controllers
             return result;
         }
 
+        // GET api/<StocksController>/AAPL
+        [HttpGet("similar/{description}")]
+        public async Task<List<Stock>> GetSimlarStocks(string description)
+        {
+            var stocks = new List<Stock>();
+            StockDetailResponse? result = null;
+            HttpResponseMessage response = await client.GetAsync(String.Format("{0}?search={1}&active=true&apiKey={2}", endpoint, description, apiKey));
+            if (response.IsSuccessStatusCode)
+            {
+                var stockResponse = await response.Content.ReadFromJsonAsync<StocksResponse>();
+                foreach (var stock in stockResponse.Results)
+                {
+                    stocks.Add(new Stock
+                    {
+                        Ticker = stock.Ticker,
+                        Name = stock.Name
+                    });
+                }
+            }
+
+            return stocks;
+        }
+
     }
 }
