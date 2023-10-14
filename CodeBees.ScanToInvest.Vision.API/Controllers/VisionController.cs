@@ -20,6 +20,7 @@ namespace CodeBees.ScanToInvest.Vision.API.Controllers
         [HttpPost("{path}")]
         public async Task<string> GetVisionObjectAsync(string path)
         {
+            client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer {0}", basicAuthValue));
 
             var values = new Dictionary<string, string>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -10,12 +11,12 @@ namespace CodeBees.ScanToInvest.Vision.API.Controllers
     [ApiController]
     public class MediaController : ControllerBase
     {
-
+        [EnableCors]
         [HttpPost(nameof(UploadFile))]
         public async Task<string> UploadFile(IFormFile files)
         {
             string systemFileName = files.FileName;
-            string blobstorageconnection = "DefaultEndpointsProtocol=https;AccountName=codestorageaccount001;AccountKey=jKDhQkeslTTZZ4cQbpwc3Bj6K+cO8KWTopxyTWSOtWQd//Kd2B6OwUjYo3czYffCaM/pWeckxDVR+ASt+suRpA==;EndpointSuffix=core.windows.net";
+            string blobstorageconnection = "DefaultEndpointsProtocol=https;AccountName=codestorage001;AccountKey=mcFuwUICoVxdr/PfJc5LnYjjxOqTxyltCjYy/gW7irn/1Uxa9MSbfDMMOPAtI0Bzd+myUvOrXHhw+ASt1Cpgzg==;EndpointSuffix=core.windows.net";
             // Retrieve storage account from connection string.    
             CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse(blobstorageconnection);
             // Create the blob client.    
