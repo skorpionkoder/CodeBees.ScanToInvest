@@ -1,0 +1,42 @@
+<div class="example-button-row">
+  <input class="form-control" type="file" (change)="onChange($event)">
+
+  <button (click)="onUpload()" mat-raised-button color="brown">
+    Upload
+  </button>
+
+</div>
+
+<!-- Shareable short link of uploaded file -->
+<div class="container text-center jumbotron" *ngIf="blobUrl">
+  <h2> File Uploaded Here</h2>
+  <a href="{{blobUrl}}">{{blobUrl}}</a>
+  <h2> Company Name: {{visionObj}}</h2>
+  <div *ngIf="visionObj != 'Vision not found.'">
+    <h2> Company Code: {{stockCode}}</h2>
+  <h2> Company Details Below: </h2>
+  {{stockDetails.results.description}}
+  <h3> Company Website: </h3><a href={{stockDetails.results.homepage_Url}}>{{stockDetails.results.homepage_Url}}</a>
+  <h3>Company Logo: </h3><img src={{stockDetails.results.branding.logo_Url}} />
+    <img src={{stockDetails.results.branding.icon_Url}} />
+
+  <h2>Similar Stocks:</h2>
+  <table>
+    <tr>
+      <th>Stock Code</th>
+      <th>Stock name</th>
+    </tr>
+    <tr *ngFor="let item of similarStocks">
+      <td>{{item.ticker}}</td>
+      <td>{{item.name}}</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+
+
+<!--Flag variable is used here-->
+<div class="container" *ngIf="loading">
+  <h3>Loading ...</h3>
+</div>
